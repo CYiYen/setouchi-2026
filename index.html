@@ -73,8 +73,19 @@ body{background:var(--paper);color:var(--ink);font-family:var(--serif);line-heig
 .lead{font-size:15px;color:var(--ink-2);margin:16px 0 6px;max-width:64ch;line-height:1.95}
 .lead b{color:var(--ink)}
 
-.mapbox{margin-top:20px;border:1px solid var(--line);overflow:hidden;background:var(--card)}
-.mapbox svg{width:100%;height:auto;display:block}
+.mapbox{margin-top:20px;border:1px solid var(--line);overflow:hidden;background:var(--card);position:relative}
+.mapstage{overflow:hidden;text-align:center;background:var(--card)}
+.mapstage svg{height:min(46vh,420px);width:auto;max-width:100%;display:inline-block;vertical-align:top}
+.isle path{transition:fill-opacity .15s}
+.isle:hover path{fill-opacity:.26}
+.mapctrl{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;z-index:2}
+.mapctrl button{min-width:32px;height:32px;padding:0 9px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(3px);color:var(--ink);cursor:pointer;font-size:15px;font-family:var(--sans);border-radius:6px;display:flex;align-items:center;justify-content:center;line-height:1}
+.mapctrl button:last-child{font-size:12px;letter-spacing:.06em}
+.mapctrl button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.mapinfo{padding:13px 16px;border-top:1px solid var(--line-soft);min-height:20px}
+.mapinfo-hint{font-family:var(--sans);font-size:12.5px;color:var(--ink-3)}
+.mapinfo-h{font-family:var(--serif);font-size:15.5px;font-weight:600;letter-spacing:.04em;margin-bottom:10px}
+.mapinfo .sched{border-top:0;padding-top:0}
 .maplegend{display:flex;flex-wrap:wrap;gap:9px 16px;padding:11px 16px;border-top:1px solid var(--line-soft);font-family:var(--sans);font-size:12px;color:var(--ink-2)}
 .maplegend span{display:inline-flex;align-items:center;gap:6px}
 .maplegend svg{width:17px;height:17px;color:var(--ink-2)}
@@ -432,34 +443,33 @@ function buildMap(){
  const dm=(x,y,d)=>{const s=String(d),w=Math.max(16,[...s].length*6+9);
    return `<rect x="${(x-w/2).toFixed(1)}" y="${(y-8).toFixed(1)}" width="${w}" height="16" rx="8" fill="var(--card)" stroke="var(--seal)" stroke-width="1" opacity=".9"/><text x="${x}" y="${(y+3.4).toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="600" fill="var(--seal)" font-family="var(--sans)">${s}</text>`;};
  const IS=[
-  {x:96,y:126,l:"豊島",d:"2",rx:28,ry:17,m:[1,0.82,1.12,0.86,1.06,0.9,1.1,0.84]},
-  {x:208,y:174,l:"直島",d:"3·4·5",rx:22,ry:16,m:[1,0.9,1.1,0.82,1.14,0.86,1.04,0.92]},
-  {x:322,y:238,l:"女木島",d:"7",rx:16,ry:13,m:[1,0.85,1.12,0.9,1.05,0.88]},
-  {x:354,y:120,l:"男木島",d:"7",rx:13,ry:19,m:[1.1,0.85,1,0.9,1.16,0.8]},
+  {x:96,y:126,l:"豊島",d:"2",rx:28,ry:17,m:[1,0.82,1.12,0.86,1.06,0.9,1.1,0.84],key:"teshima"},
+  {x:208,y:174,l:"直島",d:"3·4·5",rx:22,ry:16,m:[1,0.9,1.1,0.82,1.14,0.86,1.04,0.92],key:"naoshima"},
+  {x:322,y:238,l:"女木島",d:"7",rx:16,ry:13,m:[1,0.85,1.12,0.9,1.05,0.88],key:"meon"},
+  {x:354,y:120,l:"男木島",d:"7",rx:13,ry:19,m:[1.1,0.85,1,0.9,1.16,0.8],key:"meon"},
  ];
  const LAND=[{x:300,y:432,l:"佛生山",d:"6"},{x:432,y:404,l:"栗林公園",d:"8"},{x:520,y:448,l:"高松機場",d:"1·8"},{x:588,y:374,l:"牟礼",d:"7*"}];
- const HUB={x:330,y:352};
- // ferry lines (hairline), one time label each
- const L=[{b:0,t:"35分",cv:-38},{b:1,t:"30 / 50分"},{b:2,t:"20分"},{i:[1,0],t:"20分",dash:1},{i:[3,2],t:"20分",fromI:1}];
+ const HUB={x:330,y:352,hub:1};
+ const edge=(f,t,r)=>{const dx=t.x-f.x,dy=t.y-f.y,d=Math.hypot(dx,dy)||1;return{x:f.x+dx/d*r,y:f.y+dy/d*r};};
+ const rad=p=>p.hub?10:(Math.max(p.rx,p.ry)+6);
+ // ferry lines — endpoints stop at island edges so a line never crosses the island body
  let lines="",labels="";
- [[HUB,IS[0],"35分",-30],[HUB,IS[1],"30 / 50分",0],[HUB,IS[2],"20分",0],[IS[1],IS[0],"20分",0,1],[IS[2],IS[3],"20分",0,0]].forEach(s=>{const A=s[0],B=s[1],mx=(A.x+B.x)/2+(s[3]||0),my=(A.y+B.y)/2-12;
-   lines+=`<path d="M${A.x} ${A.y} Q ${mx} ${my} ${B.x} ${B.y}" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".32" ${s[4]?'stroke-dasharray="1.5 4"':''}/>`;
-   labels+=T(mx,my-3,s[2],'middle',10.5,400,'var(--sans)','var(--ink-3)');});
+ [{a:HUB,b:IS[0],cv:-28,t:"35分"},{a:HUB,b:IS[1],t:"30 / 50分"},{a:HUB,b:IS[2],t:"20分"},{a:IS[1],b:IS[0],t:"20分",dash:1},{a:IS[2],b:IS[3],t:"20分"}].forEach(s=>{const a=edge(s.a,s.b,rad(s.a)),b=edge(s.b,s.a,rad(s.b));const mx=(a.x+b.x)/2+(s.cv||0),my=(a.y+b.y)/2-10;
+   lines+=`<path d="M${a.x.toFixed(1)} ${a.y.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${b.x.toFixed(1)} ${b.y.toFixed(1)}" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".3" ${s.dash?'stroke-dasharray="1.5 4"':''}/>`;
+   labels+=T(mx,my-3,s.t,'middle',10.5,400,'var(--sans)','var(--ink-3)');});
  lines+=`<path d="M356 360 Q 324 402 300 420" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".26" stroke-dasharray="1.5 4"/>`;labels+=T(246,432,"琴電 16分",'end',10,400,'var(--sans)','var(--ink-3)');
  lines+=`<path d="M378 360 Q 476 404 512 436" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".26" stroke-dasharray="1.5 4"/>`;labels+=T(488,388,"巴士 45分",'middle',10,400,'var(--sans)','var(--ink-3)');
- // land coastline (clean)
  const land=`<path d="M0 350 C 150 336, 300 350, 400 346 C 500 342, 600 352, 680 348 L680 470 L0 470 Z" fill="currentColor" fill-opacity=".05"/><path d="M0 350 C 150 336, 300 350, 400 346 C 500 342, 600 352, 680 348" fill="none" stroke="currentColor" stroke-opacity=".32" stroke-width="1.1"/>`;
- // islands (silhouettes) + labels + date markers
+ // islands: clickable silhouettes (drawn after lines → always on top)
  let isles="",marks="";
- IS.forEach(p=>{isles+=`<path d="${blob(p.x,p.y,p.rx,p.ry,p.m)}" fill="currentColor" fill-opacity=".11" stroke="currentColor" stroke-opacity=".5" stroke-width="1.1"/>`;
+ IS.forEach(p=>{isles+=`<g class="isle" style="cursor:pointer" onclick="islandInfo('${p.key}')"><title>點看船班與日期</title><path d="${blob(p.x,p.y,p.rx,p.ry,p.m)}" fill="currentColor" fill-opacity=".12" stroke="currentColor" stroke-opacity=".55" stroke-width="1.1"/></g>`;
    const anchor=p.x<120?'start':(p.x>470?'end':'middle');
    labels+=T(p.x,p.y+p.ry+15,p.l,anchor,14,600,'var(--serif)');
    marks+=dm(p.x,p.y-p.ry-11,p.d);});
- // hub + land spots
  let dots=`<circle cx="${HUB.x}" cy="${HUB.y}" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="${HUB.x}" cy="${HUB.y}" r="2.4" fill="currentColor"/>`;
  labels+=T(HUB.x,HUB.y+20,"高松港",'middle',14,600,'var(--serif)');
  LAND.forEach(p=>{dots+=`<circle cx="${p.x}" cy="${p.y}" r="3" fill="currentColor"/>`;const anchor=p.x>470?'end':'middle';labels+=T(p.x,p.y+18,p.l,anchor,13.5,600,'var(--serif)');marks+=dm(p.x,p.y-14,p.d);});
- return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="高松與周邊島嶼相對位置圖" style="color:var(--ink)">${land}${lines}${isles}${dots}${labels}${marks}${T(56,44,"瀨戶內海",'start',12.5,400,'var(--serif)','var(--ink-3)')}<g transform="translate(644,48)" opacity=".65"><circle r="12" fill="none" stroke="currentColor" stroke-width="1"/><path d="M0 -8 L2.6 3.5 L0 1 L-2.6 3.5 Z" fill="var(--seal)"/>${T(0,-16,"北",'middle',10,400,'var(--sans)','var(--ink-3)')}</g></svg>`;
+ return `<svg id="theMap" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="高松與周邊島嶼相對位置圖" style="color:var(--ink);touch-action:none">${land}${lines}${isles}${dots}${labels}${marks}${T(56,44,"瀨戶內海",'start',12.5,400,'var(--serif)','var(--ink-3)')}<g transform="translate(644,48)" opacity=".65"><circle r="12" fill="none" stroke="currentColor" stroke-width="1"/><path d="M0 -8 L2.6 3.5 L0 1 L-2.6 3.5 Z" fill="var(--seal)"/>${T(0,-16,"北",'middle',10,400,'var(--sans)','var(--ink-3)')}</g></svg>`;
 }
 
 function mapsUrl(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
@@ -593,6 +603,26 @@ const sc=document.getElementById("stayCards");
 STAYS.forEach(s=>sc.insertAdjacentHTML("beforeend",`<div class="c"><div class="cd">${s.cd}</div><div class="nm">${s.nm}</div><dl><dt>位置</dt><dd>${s.loc}</dd><dt>房型</dt><dd>${s.room}</dd><dt>取消</dt><dd>${s.cx}</dd></dl>${s.trip?`<a class="reflink site" href="${s.trip}" target="_blank" rel="noopener" style="margin-top:12px">${ICON.link}Trip.com 訂房</a>`:""}</div>`));
 function toggleTheme(){const r=document.documentElement;const cur=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");r.setAttribute("data-theme",cur==="dark"?"light":"dark");}
 
-document.getElementById("mapbox").innerHTML=buildMap()+`<div class="maplegend"><span>${ICON.ferry}虛線＝航路</span><span>${ICON.train}電車</span><span>${ICON.bus}巴士</span><span><span class="dnum">N</span>第 N 天</span></div>`;
+const ISLE_TITLE={teshima:"豊島 ｜ 9/28（一）· 高松港 ⇄ 家浦港",naoshima:"直島 ｜ 9/29 – 10/1 · 高松港 ⇄ 宮浦港",meon:"女木・男木 ｜ 10/3（六）· 高松 ⇄ 女木 ⇄ 男木"};
+function islandInfo(key){if(window._mapDragged)return;const el=document.getElementById("mapInfo");if(!el)return;el.innerHTML=`<div class="mapinfo-h">${ISLE_TITLE[key]||""}</div>`+schedBlock(key,key==="teshima"?"weekend":undefined);}
+let MVB={x:0,y:0,w:680,h:470};const MW=680,MH=470;
+function mapApply(){const s=document.getElementById("theMap");if(s)s.setAttribute("viewBox",`${MVB.x.toFixed(1)} ${MVB.y.toFixed(1)} ${MVB.w.toFixed(1)} ${MVB.h.toFixed(1)}`);}
+function mapClamp(){MVB.w=Math.max(MW*0.3,Math.min(MW,MVB.w));MVB.h=MVB.w*(MH/MW);MVB.x=Math.max(-50,Math.min(MW-MVB.w+50,MVB.x));MVB.y=Math.max(-50,Math.min(MH-MVB.h+50,MVB.y));}
+function mapZoomAt(cx,cy,f){const nw=Math.max(MW*0.3,Math.min(MW,MVB.w*f)),ratio=nw/MVB.w;MVB.x=cx-(cx-MVB.x)*ratio;MVB.y=cy-(cy-MVB.y)*ratio;MVB.w=nw;MVB.h=nw*(MH/MW);mapClamp();mapApply();}
+function mapZoom(f){mapZoomAt(MVB.x+MVB.w/2,MVB.y+MVB.h/2,f);}
+function mapReset(){MVB={x:0,y:0,w:MW,h:MH};mapApply();}
+function setupMapZoom(){const s=document.getElementById("theMap");if(!s)return;const toSvg=e=>{const r=s.getBoundingClientRect();return{x:MVB.x+(e.clientX-r.left)/r.width*MVB.w,y:MVB.y+(e.clientY-r.top)/r.height*MVB.h};};
+ s.addEventListener("wheel",e=>{e.preventDefault();const p=toSvg(e);mapZoomAt(p.x,p.y,e.deltaY>0?1.12:0.9);},{passive:false});
+ let drag=false,sx=0,sy=0,vb0=null;window._mapDragged=false;
+ s.addEventListener("pointerdown",e=>{drag=true;window._mapDragged=false;sx=e.clientX;sy=e.clientY;vb0={...MVB};s.style.cursor="grabbing";});
+ window.addEventListener("pointermove",e=>{if(!drag)return;const r=s.getBoundingClientRect();if(Math.abs(e.clientX-sx)+Math.abs(e.clientY-sy)>5)window._mapDragged=true;MVB.x=vb0.x-(e.clientX-sx)/r.width*MVB.w;MVB.y=vb0.y-(e.clientY-sy)/r.height*MVB.h;mapClamp();mapApply();});
+ window.addEventListener("pointerup",()=>{drag=false;s.style.cursor="grab";});
+ s.style.cursor="grab";}
+document.getElementById("mapbox").innerHTML=
+ `<div class="mapstage">${buildMap()}</div>`
+ +`<div class="mapctrl"><button onclick="mapZoom(0.8)" aria-label="放大">＋</button><button onclick="mapZoom(1.25)" aria-label="縮小">－</button><button onclick="mapReset()">重置</button></div>`
+ +`<div id="mapInfo" class="mapinfo"><span class="mapinfo-hint">點島嶼看船班與日期 · 滾輪／拖曳可縮放</span></div>`
+ +`<div class="maplegend"><span>${ICON.ferry}虛線＝航路</span><span>${ICON.train}電車</span><span>${ICON.bus}巴士</span><span><span class="dnum">N</span>第 N 天</span></div>`;
+setupMapZoom();
 load();applyState();applyEdits();renderTT();
 </script>
