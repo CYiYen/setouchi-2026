@@ -1,0 +1,600 @@
+<title>瀨戶內海 · 八天七夜</title>
+<style>
+:root{
+  --paper:#F1EDE3; --paper-2:#E8E3D6; --card:#F7F4ED;
+  --ink:#1A1815; --ink-2:#514D45; --ink-3:#8E887B; --ink-4:#B8B2A4;
+  --line:rgba(26,24,21,.22); --line-soft:rgba(26,24,21,.11);
+  --seal:#AE3B2A; --sea:#2E5A63; --sea-tint:rgba(46,90,99,.12);
+  --serif:"Songti TC","Noto Serif TC","Shippori Mincho","Yu Mincho","Hiragino Mincho ProN","MS Mincho",serif;
+  --sans:"Helvetica Neue","Helvetica","PingFang TC","Hiragino Sans","Noto Sans TC","Arial",sans-serif;
+}
+:root[data-theme="dark"]{
+  --paper:#16150F; --paper-2:#1E1C15; --card:#211F17;
+  --ink:#EEE8D8; --ink-2:#B7B0A0; --ink-3:#847E70; --ink-4:#5B5648;
+  --line:rgba(238,232,216,.24); --line-soft:rgba(238,232,216,.12);
+  --seal:#D86048; --sea:#6FB6BE; --sea-tint:rgba(111,182,190,.14);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#16150F; --paper-2:#1E1C15; --card:#211F17;
+  --ink:#EEE8D8; --ink-2:#B7B0A0; --ink-3:#847E70; --ink-4:#5B5648;
+  --line:rgba(238,232,216,.24); --line-soft:rgba(238,232,216,.12);
+  --seal:#D86048; --sea:#6FB6BE; --sea-tint:rgba(111,182,190,.14);
+}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);line-height:1.85;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
+  background-image:repeating-linear-gradient(48deg,var(--line-soft) 0 .5px,transparent .5px 7px);
+  background-attachment:fixed}
+.vtext{writing-mode:vertical-rl;text-orientation:upright}
+.sans{font-family:var(--sans)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(16px,4vw,52px)}
+::selection{background:var(--seal);color:var(--paper)}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--paper) 90%,transparent);
+  backdrop-filter:blur(7px);border-bottom:1px solid var(--line-soft)}
+.top-in{max-width:1080px;margin:0 auto;padding:10px clamp(16px,4vw,52px);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-size:19px;letter-spacing:.16em;font-weight:600}
+.top nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.top nav::-webkit-scrollbar{display:none}
+.top nav a{font-family:var(--sans);font-size:12px;letter-spacing:.14em;color:var(--ink-2);text-decoration:none;padding:5px 9px;white-space:nowrap;transition:.15s;border-bottom:1px solid transparent}
+.top nav a:hover{color:var(--ink);border-bottom-color:var(--seal)}
+.tools{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.tbtn{font-family:var(--sans);border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;font-size:11.5px;
+  letter-spacing:.08em;padding:6px 11px;transition:.15s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.tbtn:hover{background:var(--ink);color:var(--paper)}
+.tbtn svg{width:14px;height:14px}
+.tbtn.on{background:var(--seal);border-color:var(--seal);color:#fff}
+
+/* cover */
+.cover{position:relative;min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:56px 0 30px;overflow:hidden}
+.cover .fr{position:absolute;inset:clamp(14px,3vw,32px);border:1px solid var(--line);pointer-events:none}
+.cover .fr::before{content:"";position:absolute;inset:6px;border:1px solid var(--line-soft)}
+.cover-grid{position:relative;display:flex;justify-content:center;align-items:center;gap:clamp(28px,8vw,96px);min-height:56vh;flex-wrap:wrap}
+.cv-title{writing-mode:vertical-rl;text-orientation:upright;font-size:clamp(60px,13vw,132px);font-weight:600;letter-spacing:.08em;line-height:1;justify-self:center}
+.cv-left{writing-mode:vertical-rl;text-orientation:mixed;font-size:clamp(13px,1.5vw,15px);color:var(--ink-2);letter-spacing:.24em;line-height:2.6;height:min(52vh,480px);align-self:center}
+.cv-right{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.cv-kick{font-family:var(--sans);font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--ink-3)}
+.cv-dates{font-family:var(--sans);font-size:clamp(19px,2.6vw,27px);letter-spacing:.1em;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0}
+.cv-en{font-family:var(--sans);font-size:clamp(10px,1.3vw,12px);letter-spacing:.26em;color:var(--sea);text-transform:uppercase;line-height:2}
+.seal{display:inline-flex;align-items:center;justify-content:center;width:58px;height:58px;border:1.5px solid var(--seal);color:var(--seal);border-radius:50%;font-size:13px;line-height:1.15;writing-mode:vertical-rl;text-orientation:upright;flex:0 0 auto;transform:rotate(-4deg)}
+.cv-meta{font-size:14px;color:var(--ink-2);letter-spacing:.06em;line-height:1.9}
+.editbar{position:relative;margin-top:30px;border:1px dashed var(--sea);padding:13px 16px;font-family:var(--sans);font-size:13px;color:var(--ink-2);line-height:1.75;display:flex;gap:12px;align-items:flex-start}
+.editbar svg{width:20px;height:20px;color:var(--sea);flex:0 0 auto;margin-top:2px}
+.editbar b{color:var(--ink);font-weight:600}
+
+/* section head */
+.sec{padding:46px 0 8px}
+.sec-h{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink-3);padding-bottom:11px}
+.sec-h .idx{font-family:var(--sans);font-size:12px;letter-spacing:.3em;color:var(--seal)}
+.sec-h h2{font-family:var(--serif);font-size:clamp(24px,3.6vw,34px);letter-spacing:.12em;font-weight:600}
+.sec-h .note{margin-left:auto;font-family:var(--sans);font-size:12px;letter-spacing:.06em;color:var(--ink-3)}
+.lead{font-size:15px;color:var(--ink-2);margin:16px 0 6px;max-width:64ch;line-height:1.95}
+.lead b{color:var(--ink)}
+
+.mapbox{margin-top:20px;border:1px solid var(--line);overflow:hidden;background:var(--card)}
+.mapbox svg{width:100%;height:auto;display:block}
+.maplegend{display:flex;flex-wrap:wrap;gap:9px 16px;padding:11px 16px;border-top:1px solid var(--line-soft);font-family:var(--sans);font-size:12px;color:var(--ink-2)}
+.maplegend span{display:inline-flex;align-items:center;gap:6px}
+.maplegend svg{width:17px;height:17px;color:var(--ink-2)}
+.maplegend .dnum{padding:1px 7px;border-radius:8px;background:var(--seal);color:#fff;font-size:11px;font-weight:600}
+
+/* day spread */
+.day{display:grid;grid-template-columns:172px 1fr;gap:clamp(18px,4vw,52px);padding:44px 0;border-top:1px solid var(--line)}
+.day[data-side="R"]{grid-template-columns:1fr 172px}
+.day[data-side="R"] .daymark{order:2}.day[data-side="R"] .daybody{order:1}
+.daymark{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px}
+.daymark .dn{font-family:var(--sans);font-size:11px;letter-spacing:.28em;color:var(--seal)}
+.dplace{font-size:clamp(54px,8.5vw,100px);font-weight:600;letter-spacing:.06em;line-height:1;writing-mode:vertical-rl;text-orientation:upright}
+.daymark .ddate{font-family:var(--sans);font-size:11px;letter-spacing:.22em;color:var(--ink-3);writing-mode:vertical-rl;text-orientation:mixed}
+.daymark .dstay{font-size:12.5px;color:var(--sea);writing-mode:vertical-rl;text-orientation:mixed;border-right:1px solid var(--sea);padding-right:9px;letter-spacing:.08em;max-height:220px}
+.daybody{min-width:0}
+.day-sub{font-size:14px;color:var(--ink-3);letter-spacing:.08em}
+.day-title{font-size:24px;font-weight:600;letter-spacing:.05em;margin-top:2px}
+.day-sum{font-size:15.5px;color:var(--ink-2);margin-top:6px;line-height:1.8}
+
+.rstrip{display:flex;flex-wrap:wrap;align-items:center;gap:5px 3px;margin:18px 0 4px;padding:13px 16px;background:var(--paper-2)}
+.rnode{display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:14.5px;font-weight:600}
+.rnode .rd{width:8px;height:8px;border-radius:50%;background:var(--seal);flex:0 0 auto}
+.rseg{display:inline-flex;align-items:center;gap:5px;font-family:var(--sans);color:var(--ink-2);font-size:12.5px;padding:0 7px}
+.rseg svg{width:20px;height:20px;flex:0 0 auto;color:var(--sea)}
+.rseg .ar{color:var(--ink-4);margin-left:2px}
+
+.note-box{border-left:2px solid var(--seal);padding:10px 0 10px 15px;margin:16px 0 2px;font-size:14px;color:var(--ink-2);line-height:1.8;background:linear-gradient(90deg,color-mix(in srgb,var(--seal) 7%,transparent),transparent)}
+.note-box .h{font-family:var(--sans);color:var(--seal);font-weight:600;display:flex;align-items:center;gap:7px;margin-bottom:3px;font-size:13px}
+.note-box .h svg{width:16px;height:16px}
+.note-box b{color:var(--ink);font-weight:600}
+
+.acts{margin-top:20px;border-top:1px solid var(--line-soft)}
+.act{border-bottom:1px solid var(--line-soft)}
+.act.closed{background:color-mix(in srgb,var(--seal) 5%,transparent)}
+.act-h{display:grid;grid-template-columns:100px 1fr auto;gap:12px;align-items:baseline;padding:15px 2px;cursor:pointer}
+.act.closed .act-h{cursor:default}
+.act-time{font-family:var(--sans);font-size:13px;color:var(--sea);font-weight:600;white-space:nowrap}
+.act-time.none{color:var(--ink-4);font-weight:400}
+.act-name{font-size:17px;font-weight:600;line-height:1.5;letter-spacing:.02em}
+.act-name .jp{font-family:var(--sans);font-weight:400;color:var(--ink-3);font-size:13px;margin-left:7px}
+.act.closed .act-name{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--ink-4)}
+.act-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font-family:var(--sans);font-size:11px;letter-spacing:.04em;padding:2px 9px;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);color:var(--ink-2)}
+.tag.book{border-color:var(--sea);color:var(--sea)}
+.tag.closed{border-color:var(--seal);color:#fff;background:var(--seal);font-weight:600}
+.tag.meal{border-color:var(--seal);color:var(--seal)}
+.act-tog{font-family:var(--serif);font-size:18px;color:var(--ink-4);align-self:center;transition:transform .25s}
+.act.open .act-tog{transform:rotate(45deg);color:var(--seal)}
+.act.closed .act-tog{display:none}
+.act-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+.act.open .act-body{grid-template-rows:1fr}
+.act-bin{overflow:hidden}
+.act-inner{padding:2px 2px 20px 112px}
+.act-note{font-size:14.5px;color:var(--ink-2);line-height:1.85;max-width:62ch}
+@media(max-width:640px){.act-inner{padding:2px 2px 20px 2px}.act-h{grid-template-columns:1fr auto}.act-time{grid-column:1;order:2;margin-top:2px}}
+
+.reflinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.reflink{font-family:var(--sans);font-size:12px;color:var(--ink-2);border:1px solid var(--line);padding:4px 10px;text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:.15s}
+.reflink:hover{border-color:var(--sea);color:var(--sea)}
+.reflink svg{width:13px;height:13px}
+.reflink.site{border-color:var(--sea);color:var(--sea)}
+
+.ucontent{margin-top:2px}
+.ugal{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.uthumb{position:relative;width:130px;height:96px;overflow:hidden;border:1px solid var(--line);cursor:zoom-in;flex:0 0 auto}
+.uthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.uthumb.big{width:min(520px,82vw);height:auto;cursor:zoom-out}.uthumb.big img{height:auto;object-fit:contain}
+.uthumb .del{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:13px;cursor:pointer;display:none;align-items:center;justify-content:center;line-height:1}
+body.editing .uthumb .del{display:flex}
+.unotes{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.unote-row{display:flex;align-items:flex-start;gap:6px}
+.unote{flex:1;min-width:0;font-size:14px;color:var(--ink);line-height:1.75;border-left:2px solid var(--sea);padding:5px 12px;background:var(--sea-tint);min-height:1.6em;outline:none;word-break:break-word}
+.unote:empty::before{content:"寫點什麼…";color:var(--ink-4)}
+.unote-row .del{border:0;background:none;color:var(--ink-4);font-size:16px;cursor:pointer;display:none;padding:3px 5px;flex:0 0 auto;line-height:1.2}
+body.editing .unote-row .del{display:block}
+.ulinks{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.ulink{font-family:var(--sans);font-size:12px;color:var(--sea);border:1px solid var(--sea);padding:4px 9px;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.ulink .del{border:0;background:none;color:var(--ink-4);cursor:pointer;font-size:13px;display:none;padding:0}
+body.editing .ulink .del{display:inline}
+.linkform{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.linkform input{font-family:var(--sans);border:1px solid var(--line);padding:6px 9px;font-size:13px;background:var(--paper);color:var(--ink)}
+.linkform input.t{width:110px}.linkform input.u{flex:1;min-width:150px}
+.linkform button{font-family:var(--sans);border:1px solid var(--sea);background:var(--sea);color:#fff;padding:6px 12px;cursor:pointer;font-size:12.5px}
+.uadd{display:none;gap:8px;flex-wrap:wrap;margin-top:14px}
+body.editing .uadd{display:flex}
+.uadd button{font-family:var(--sans);font-size:12.5px;border:1px dashed var(--line);background:none;color:var(--ink-2);padding:6px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:.15s}
+.uadd button:hover{border-color:var(--sea);color:var(--sea);border-style:solid}
+.uadd button svg{width:13px;height:13px}
+.daynotes-wrap{margin-top:14px}
+/* editable baseline text + delete controls */
+body.editing .etext{outline:1px dashed var(--line);outline-offset:3px;border-radius:2px;cursor:text}
+body.editing .etext:hover{outline-color:var(--ink-3)}
+body.editing .etext:focus{outline:1px solid var(--sea);outline-offset:3px}
+.reflink-w{display:inline-flex;align-items:center;gap:1px}
+.lkdel{display:none;border:0;background:none;color:var(--ink-4);cursor:pointer;font-size:14px;padding:0 4px;line-height:1}
+.lkdel:hover{color:var(--seal)}
+body.editing .lkdel{display:inline}
+.actdel{display:none;margin-top:16px;font-family:var(--sans);font-size:12px;letter-spacing:.04em;border:1px solid var(--line);background:none;color:var(--ink-3);padding:5px 13px;cursor:pointer}
+.actdel:hover{border-color:var(--seal);color:var(--seal)}
+body.editing .actdel{display:inline-block}
+
+/* timetable */
+.ttwrap{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:36px}
+.ttdates{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+.ttd{font-family:var(--serif);border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer;padding:9px 13px;text-align:center;transition:.15s;min-width:72px}
+.ttd .dd{font-size:16px;font-weight:600;display:block}.ttd .dw{font-family:var(--sans);font-size:11px;color:var(--ink-3);margin-top:1px;display:block}
+.ttd:hover{border-color:var(--ink)}.ttd.on{background:var(--ink);color:var(--paper)}.ttd.on .dw{color:var(--paper-2)}
+.ttroutes{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 22px}
+.ttr{font-family:var(--sans);font-size:12px;padding:5px 12px;border:1px solid var(--line-soft);color:var(--ink-3);cursor:pointer;background:none}
+.ttr:hover{color:var(--ink);border-color:var(--line)}.ttr.on{color:var(--paper);background:var(--sea);border-color:var(--sea)}
+.ttpanel{display:flex;flex-direction:column;gap:22px}
+.ttlabel{font-size:18px;font-weight:600;letter-spacing:.06em}
+.sched{border-top:1px solid var(--line);padding-top:14px}
+.sched-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.sched-h .nm{font-size:17px;font-weight:600}.sched-h .co{font-family:var(--sans);font-size:12px;color:var(--ink-3)}
+.sched-h .var{font-family:var(--sans);font-size:11px;color:var(--paper);background:var(--ink-2);padding:2px 8px}
+.sched-h .fare{margin-left:auto;font-family:var(--sans);font-size:12.5px;color:var(--sea);border:1px solid var(--sea);padding:2px 9px}
+.dirlab{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);margin:8px 0}
+.trips{display:grid;grid-template-columns:repeat(auto-fill,minmax(144px,1fr));gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-bottom:12px}
+.trip{background:var(--card);padding:10px 12px;font-family:var(--sans)}
+.trip .t{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:6px}
+.trip .arr{color:var(--ink-3);font-weight:400;font-size:13px}.trip .via{font-size:11px;color:var(--seal);margin-top:2px}
+.ttnote{font-size:13px;color:var(--ink-2);line-height:1.75;border-left:3px solid var(--sea);padding-left:12px}
+.ttnote.warn{border-color:var(--seal)}.ttnote b{color:var(--ink)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-top:22px}
+.c{background:var(--card);padding:18px}
+.c .cd{font-family:var(--sans);font-size:11px;letter-spacing:.1em;color:var(--seal)}
+.c .nm{font-size:18px;font-weight:600;margin:8px 0 11px}
+.c dl{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:13px}
+.c dt{color:var(--ink-3)}.c dd{color:var(--ink-2)}
+.legend{display:flex;flex-wrap:wrap;gap:11px 20px;margin-top:22px;font-family:var(--sans);font-size:12.5px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend .lg{font-size:11px;padding:2px 8px;border:1px solid var(--line)}
+footer{border-top:1px solid var(--line);padding:36px 0 64px;margin-top:28px;font-size:12.5px;color:var(--ink-3);line-height:1.9}
+footer b{color:var(--ink-2)}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper);font-family:var(--sans);padding:10px 18px;font-size:13.5px;opacity:0;transition:.25s;z-index:80;pointer-events:none;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:720px){
+  .cover-grid{grid-template-columns:1fr;gap:24px;text-align:center}
+  .cv-left{display:none}
+  .cv-title{writing-mode:horizontal-tb;font-size:clamp(52px,16vw,84px)}
+  .cv-right{align-items:center}
+  .day,.day[data-side="R"]{grid-template-columns:1fr;gap:14px}
+  .day[data-side="R"] .daymark{order:0}.day[data-side="R"] .daybody{order:0}
+  .daymark{flex-direction:row;justify-content:flex-start;align-items:flex-end;gap:16px;flex-wrap:wrap}
+  .dplace{writing-mode:horizontal-tb;font-size:clamp(44px,13vw,68px)}
+  .daymark .ddate,.daymark .dstay{writing-mode:horizontal-tb;border-right:0;border-top:1px solid var(--sea);padding:6px 0 0;max-height:none}
+}
+</style>
+
+<div class="top">
+  <div class="top-in">
+    <div class="brand">瀨戶內海 旅程</div>
+    <nav><a href="#overview">地圖</a><a href="#days">旅程</a><a href="#timetable">時刻</a><a href="#stays">住宿</a></nav>
+    <div class="tools">
+      <button class="tbtn" id="editBtn" onclick="toggleEdit()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>編輯</button>
+      <button class="tbtn" onclick="exportPlan()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 21h14"/></svg>匯出</button>
+      <button class="tbtn" onclick="document.getElementById('importFile').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>匯入</button>
+      <button class="tbtn" onclick="toggleTheme()">亮 / 暗</button>
+    </div>
+  </div>
+</div>
+<input type="file" id="importFile" accept="application/json,.json" style="display:none" onchange="importPlan(event)">
+<input type="file" id="imgFile" accept="image/*" multiple style="display:none" onchange="onImgFiles(event)">
+
+<div class="wrap cover">
+  <div class="fr"></div>
+  <div class="cover-grid">
+    <div class="cv-title">瀨戶內海</div>
+    <div class="cv-right">
+      <div class="cv-kick">Setouchi · Autumn 2026</div>
+      <div class="cv-dates">2026.09.27 — 10.04</div>
+      <div class="cv-en">Teshima · Naoshima<br>Megijima · Ogijima · Takamatsu</div>
+      <div style="display:flex;gap:16px;align-items:center">
+        <div class="seal">八日<br>七泊</div>
+        <div class="cv-meta">藝術跳島<br>高松 進出</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap sec" id="overview">
+  <div class="sec-h"><span class="idx">壹</span><h2>地圖</h2><span class="note">島嶼相對位置與船程時間</span></div>
+  <p class="lead">高松是大本營（住宿與進出都在這）。所有島都在高松<b>正北方的海上</b>——女木、男木最近，直島稍遠，豊島最遠；溫泉、名園、機場在高松<b>南邊陸地</b>，搭電車或巴士。圓圈數字是第幾天去。</p>
+  <div class="mapbox" id="mapbox"></div>
+</div>
+
+<div class="wrap sec" id="days" style="padding-top:16px">
+  <div class="sec-h"><span class="idx">貳</span><h2>旅程</h2><span class="note">點活動看細節、連結與你的照片</span></div>
+  <div id="dayList"></div>
+</div>
+
+<div class="ttwrap" id="timetable">
+  <div class="wrap sec">
+    <div class="sec-h"><span class="idx">參</span><h2>時刻表</h2><span class="note">選日期看當天船班</span></div>
+    <p class="lead">點日期，直接顯示<b>那天要搭的船</b>與時刻。島間渡輪多半<b>現金購票、不能預約</b>，班次少、錯過要等一兩小時。</p>
+    <div class="ttdates" id="ttDates"></div>
+    <div class="ttroutes" id="ttRoutes"></div>
+    <div class="ttpanel" id="ttPanel"></div>
+  </div>
+</div>
+
+<div class="wrap sec" id="stays">
+  <div class="sec-h"><span class="idx">肆</span><h2>住宿</h2><span class="note">共 7 晚</span></div>
+  <div class="cards" id="stayCards"></div>
+  <div class="legend">
+    <span><span class="lg" style="border-color:var(--sea);color:var(--sea)">需預約</span>要先線上訂票</span>
+    <span><span class="lg">免費</span>藝術祭護照或免費</span>
+    <span><span class="lg">¥</span>一般票價</span>
+    <span><span class="lg" style="background:var(--seal);color:#fff;border-color:var(--seal)">休</span>當天不開，別排</span>
+    <span><span class="lg" style="border-color:var(--seal);color:var(--seal)">餐</span>用餐</span>
+  </div>
+  <footer>
+    <p><b>資料來源與時效</b>：船班、開放時間、票價為 2026 年 7 月查詢之官方現行資訊（Benesse Art Site Naoshima、四國汽船、豊島渡輪、雌雄島海運「めおん」、高松機場、各設施官網）。瀨戶內時刻表逐月調整、旺季常異動，<b>出發前一週請再上官網確認當天班表與開館日曆</b>。</p>
+    <p style="margin-top:10px">出發前務必再查：直島 The Naoshima Plan「水」與 Ring of Fire 的逐日開館日曆、男木島圖書館 10 月開館日、ダモンテ商会秋季是否恢復營業。金額為單程大人票，¥ 為日圓。景點連結為官方頁與 Google 地圖。</p>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const ICON={
+ plane:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15.5 3.8 12.2a1 1 0 0 1-.1-1.9l1.5-.5 2.4 1 4.2-1.3-4-4.2 1.9-.6 5.7 3.4 4.2-1.3c.9-.3 1.8.6 1.5 1.5-.2.7-.8 1.2-1.5 1.4L21 15.5Z"/><path d="M6 19h12"/></svg>',
+ ferry:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h16l-1.7 5.2a1 1 0 0 1-1 .8H6.7a1 1 0 0 1-1-.8L4 14Z"/><path d="M7 14V9h10v5"/><path d="M12 5v4"/><path d="M3 21c1.2 0 1.8-1 3-1s1.8 1 3 1 1.8-1 3-1 1.8 1 3 1 1.8-1 3-1 1.8-1 3-1"/></svg>',
+ train:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="13" rx="2.5"/><path d="M6 11h12M9.5 4V2.8M14.5 4V2.8"/><circle cx="9" cy="14" r=".6"/><circle cx="15" cy="14" r=".6"/><path d="M8 20l2-3M16 20l-2-3"/></svg>',
+ bus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="13" rx="2.5"/><path d="M4 11h16M8 4v7M16 4v7M7 20v-3M17 20v-3"/></svg>',
+ walk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="1.6"/><path d="M11 21l1.5-6-2-1.6V9.5l3.2 1 1.3 2.5M12.5 15l-3 6M14 13.5 16 15"/></svg>',
+ bike:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="16" r="3.4"/><circle cx="18" cy="16" r="3.4"/><path d="M6 16l4-7h5l-3 7M10 9h2M14.5 9h2.5l1 3.5"/></svg>',
+ shuttle:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="2.5"/><path d="M4 11h16M7 19v-3M17 19v-3"/></svg>',
+ map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg>',
+ link:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg>',
+ photo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m3 17 5-4 4 3 3-2 6 5"/></svg>',
+ text:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>'
+};
+
+const DAYS=[
+ {n:"一",mark:"高松",date:"9/27（日）",place:"抵達 · 高松",sum:"午後落地，搭巴士進市區安頓。",stay:"Kotori（第 1 晚）",
+  route:[{p:"桃園機場"},{m:"plane",t:"14:30–18:05"},{p:"高松機場"},{m:"bus",t:"45 分"},{p:"高松市區"}],
+  acts:[
+   {time:"14:30–18:05",name:"CI178 桃園 → 高松",nolink:1,tags:[["book","已訂機票"]],note:"中華航空直飛（A321neo）。週二～週日運航，週日有班。"},
+   {time:"18:05後",name:"利木津巴士進市區",site:"https://www.takamatsu-airport.com/tw/",map:"高松空港",tags:[["pay","¥1,000"]],note:"高松機場 → 高松駅約 45–50 分，隨航班發車。"},
+   {name:"入住 Kotori Hostel",site:"https://www.kotori-japan.com/en/takamatsu/",map:"Kotori Hostel Takamatsu",tags:[["book","9/24 前免費取消"]],note:"瓦町駅步行約 7 分。雙床房、共用衛浴。"},
+  ]},
+ {n:"二",mark:"豊島",date:"9/28（一）",place:"豊島",sum:"美術館之島。週一正好開，早去晚回。",stay:"Kotori（第 2 晚）",
+  route:[{p:"高松港"},{m:"ferry",t:"渡輪 50 分"},{p:"家浦港"},{m:"bike",t:"島內單車"},{p:"美術館群"},{m:"ferry",t:"50 分"},{p:"高松港"}],
+  acts:[
+   {time:"09:07–09:57",name:"高松 → 家浦港",jp:"豊島渡輪",site:"https://t-ferry.com/schedule/",map:"高松港 フェリー",tags:[["pay","¥1,450 現金"]],note:"週一班表 9:07 發、9:57 到。現金購票、不能預約、先到先上。"},
+   {name:"租電動單車環島看海",site:"https://teshima-navi.jp/en/rental/",map:"家浦港 豊島",tags:[["pay","¥1,000／4hr"]],note:"家浦港交流中心前租，先到先租、不預約。沿海騎行拍照。"},
+   {name:"心臟音資料館",jp:"心臓音のアーカイブ",site:"https://benesse-artsite.jp/en/art/boltanski.html",map:"心臓音のアーカイブ 豊島",tags:[["pay","¥600"]],note:"10:00–17:00，不用預約。可花 ¥1,570 錄下自己的心跳留存。"},
+   {time:"12:00",name:"島廚房 午餐",jp:"島キッチン",meal:1,site:"https://www.shimakitchen.com/",map:"島キッチン 豊島",tags:[["book","2 天前線上預約"]],note:"11:00–16:00。需線上預約，截止為利用日 2 天前 17:30（→ 9/26 前訂）。"},
+   {time:"13:30",name:"豊島美術館",site:"https://benesse-artsite.jp/en/art/teshima-artmuseum.html",map:"豊島美術館",tags:[["book","前一日線上購票"],["pay","¥1,800"]],note:"10:00–17:00。日時指定預約制，前一日 23:59 前線上購票便宜又保位。水滴狀清水混凝土空間，有咖啡廳。"},
+   {name:"豊島橫尾館 · 針工場",site:"https://benesse-artsite.jp/en/art/teshima-yokoohouse.html",map:"豊島橫尾館",tags:[["pay","¥600 / ¥520"]],note:"橫尾館 2026/4 重新開館；針工場（大竹伸朗）只開六日一，今天開。"},
+   {time:"15:10 / 17:20",name:"家浦港 → 高松",site:"https://t-ferry.com/schedule/",nomap:1,tags:[["pay","¥1,450"]],note:"15:10 發（經直島）16:00 到；末班 17:20 → 17:55。回市區收行李。"},
+  ]},
+ {n:"三",mark:"直島",date:"9/29（二）",place:"直島 · 本村",sum:"上午逛家計畫老屋藝術，晚上住進美術館看夜間展。",stay:"Benesse House Park",
+  route:[{p:"高松港"},{m:"ferry",t:"高速船 30 分"},{p:"宮浦港"},{m:"shuttle",t:"接駁車"},{p:"本村"},{m:"shuttle",t:"接駁車"},{p:"Benesse"}],
+  note:{h:"今天休",t:"Ring of Fire、The Naoshima Plan「水」、Art Island Center、Kinza 今天（二）都不開，留到 10/1（四）補。"},
+  acts:[
+   {time:"09:20–09:50",name:"高松 → 宮浦港",jp:"四國汽船高速船",site:"https://shikokukisen.com/",map:"宮浦港 直島",tags:[["pay","¥1,590 / ¥680"]],note:"高速船 30 分 ¥1,590；也可搭 8:12 渡輪 50 分 ¥680。"},
+   {name:"家計畫 老屋藝術巡禮",jp:"本村",site:"https://benesse-artsite.jp/en/art/arthouse.html",map:"直島 家プロジェクト 本村",tags:[["book","共通券 ¥1,200"]],note:"共通 5 館券（角屋・護王神社・石橋・碁會所・牙醫之家）。南寺需另線上預約 ¥600。老屋改造的當代藝術聚落。"},
+   {name:"Kinza",jp:"きんざ",closed:"休",site:"https://benesse-artsite.jp/en/art/arthouse.html",nomap:1,note:"今天休——Kinza 只開週四～週日，每時段限 1 人。移到 10/1（四）並及早預約。"},
+   {name:"本村港附近 午餐",meal:1,nolink:1,note:"逛完家計畫就近吃。"},
+   {name:"安藤忠雄博物館 · 直島新美術館",site:"https://benesse-artsite.jp/en/art/ando-museum.html",map:"安藤ミュージアム 直島",tags:[["pay","¥600 / ¥1,500"]],note:"安藤館 10–13 / 14–16:30；新美術館 2025 開幕，10:00–16:30。"},
+   {name:"入住 Benesse House Park",site:"https://benesse-artsite.jp/en/stay/benessehouse/",map:"Benesse House 直島",tags:[["book","房客夜間特典"]],note:"房客福利：美術館免費、開放到 23:00、島內免費接駁車（宮浦／本村／各館）。"},
+   {name:"杉本博司藝廊「時間迴廊」",site:"https://benesse-artsite.jp/en/art/sugimoto-gallery.html",nomap:1,tags:[["free","房客免費 · 含茶點"]],note:"房客免費入場、含茶與茶點、可待到 23:00。"},
+   {name:"晚餐 · 宮浦港（順道泡湯）",meal:1,site:"https://benesse-artsite.jp/en/art/naoshimasento.html",map:"直島銭湯 I♥湯",tags:[["pay","錢湯 ¥660"]],note:"直島錢湯 I♥湯 13:00–21:00，大竹伸朗的澡堂藝術。或窩飯店吃泡麵耍廢。"},
+   {name:"夜遊 Benesse House Museum",site:"https://benesse-artsite.jp/en/art/benessehouse-museum.html",nomap:1,tags:[["free","房客免費"]],note:"美術館全年無休、房客可看到 23:00。夜裡看海邊的當代藝術。"},
+  ]},
+ {n:"四",mark:"直島",date:"9/30（三）",place:"直島 · 美術館",sum:"上午地中＋李禹煥，午後搬到海邊的つつじ荘。",stay:"つつじ荘（海邊）",
+  route:[{p:"Benesse"},{m:"shuttle",t:"接駁車"},{p:"地中／李禹煥"},{m:"shuttle",t:"接駁"},{p:"宮浦"},{m:"bus",t:"島內"},{p:"つつじ荘"}],
+  note:{h:"今天休",t:"Ring of Fire、The Naoshima Plan「水」今天（三）仍不開。"},
+  acts:[
+   {time:"10:30",name:"地中美術館",site:"https://benesse-artsite.jp/en/art/chichu.html",map:"地中美術館 直島",tags:[["book","8/5 開賣 · 務必先訂"],["pay","¥2,500"]],note:"10:00–17:00。完全預約制，10 月票 8/5 開賣、售完即無當日票。莫內、Turrell、De Maria 的地下光之殿堂，有咖啡廳。"},
+   {name:"李禹煥美術館",site:"https://benesse-artsite.jp/en/art/lee-ufan.html",map:"李禹煥美術館 直島",tags:[["pay","¥1,200"]],note:"10:00–17:00。線上票較便宜，現場也可購。安藤設計、留白與石鐵的對話。"},
+   {name:"宮浦港 午餐",meal:1,nolink:1,note:"回宮浦一帶吃飯、採買。"},
+   {name:"入住 つつじ荘",jp:"海之家",site:"http://tsutsujiso.com/",map:"つつじ荘 直島",tags:[["book","9/26 前免費取消"]],note:"島南岸琴彈地海水浴場旁，全島最靠海的住宿。日式客房。"},
+   {time:"18:00左右",name:"海之家 BBQ 晚餐",meal:1,nomap:1,tags:[["book","3 天前預約"]],note:"露台海景燒烤，需事前預約（建議訂房時一併訂），18:00 / 18:30 開始。"},
+   {name:"收行李",nolink:1,note:"隔天要回高松，先整理。"},
+  ]},
+ {n:"五",mark:"直島",date:"10/1（四）",place:"直島 → 高松",sum:"補看週四限定的 Kinza 與 Art Island Center，午後回高松。",stay:"WeBase（第 1 晚）",
+  route:[{p:"宮浦（直島）"},{m:"ferry",t:"渡輪 60 分"},{p:"高松港"},{m:"walk",t:"步行"},{p:"北浜 / 市區"}],
+  note:{h:"只有今天能補",t:"Art Island Center 與 Kinza 只有今天能去；Kinza 每時段限 1 人，需先線上預約。"},
+  acts:[
+   {time:"10:00–16:00",name:"Art Island Center",jp:"宮浦",site:"https://artisland.jp/en",map:"Art Island Center 直島",tags:[["free","免費 · 週四開"]],note:"畫廊＋書店＋藝術中心，週四～週一開、週二三休。在宮浦，不在本村。"},
+   {name:"Kinza（有訂到才去）",jp:"きんざ",site:"https://benesse-artsite.jp/en/art/arthouse.html",nomap:1,tags:[["book","限額 1 人 · 需預約"]],note:"每時段僅 1 人入場，需提早線上預約 ¥600。"},
+   {name:"宮浦港 午餐 → 搭船回高松",meal:1,site:"https://shikokukisen.com/",nomap:1,tags:[["pay","渡輪 ¥680"]],note:"渡輪 14:20 / 17:00（60 分）或高速船（班次少）。Art Island 開到 16:00，回程時間偏緊，先看好船班。"},
+   {name:"北浜 alley · umie 咖啡",site:"https://umie.info/",map:"北浜alley 高松",tags:[["pay","咖啡自理"]],note:"海邊倉庫改造的文青街區。umie 11:00–19:00、週三休（今天四開）。"},
+   {name:"入住 WeBase 高松",site:"https://we-base.jp/takamatsu/",map:"WeBase 高松",tags:[["book","9/29 前免費取消"]],note:"瓦町駅步行約 6 分。標準雙人房。連住 3 晚。"},
+   {name:"市區晚餐",meal:1,nolink:1,note:"高松市區覓食，讚岐烏龍麵別錯過。"},
+  ]},
+ {n:"六",mark:"佛生山",date:"10/2（五）",place:"佛生山",sum:"搭電車到溫泉小鎮，泡湯、逛書店與老醋廠。",stay:"WeBase（第 2 晚）",
+  route:[{p:"高松築港"},{m:"train",t:"琴電 16 分"},{p:"仏生山駅"},{m:"walk",t:"步行 10 分"},{p:"溫泉街"}],
+  acts:[
+   {name:"琴電 高松築港 → 仏生山",map:"仏生山駅",tags:[["pay","電車 ¥360"]],note:"琴平線約 16 分，仏生山駅步行約 10 分到溫泉街。班次頻密不用查。"},
+   {time:"8:00–17:00",name:"神崎屋 米醋釀造廠",jp:"吉の酢",map:"神崎屋 吉の酢 高松",tags:[["pay","門市選購"]],note:"1789 年創業的靜置發酵醋廠，週五門市有開；是否開放參觀釀造需另詢。"},
+   {time:"11:00–24:00",name:"佛生山溫泉 天平湯",site:"https://busshozan.com/",map:"仏生山温泉 天平湯",tags:[["pay","¥700"]],note:"週五 11:00 開。館內就是「50m 書店」——泡湯前後在長板台上挑文庫本。"},
+   {time:"13:00–17:00",name:"TOYTOYTOY 雜貨",site:"https://toytoytoy.jp/",map:"TOYTOYTOY 仏生山",tags:[["pay","選購"]],note:"兩間小店相距約 60m。週一二休，今天五開。"},
+   {time:"12:00–18:00",name:"へちま文庫（古書咖啡）",map:"へちま文庫 高松",tags:[["pay","選購"]],note:"古書＋咖啡，週二休。旁邊 handabandi 是生活雜貨（營業時間未公布，出發前電話確認）。"},
+  ]},
+ {n:"七",mark:"女木男木",date:"10/3（六）",place:"女木島 · 男木島",sum:"高松正北方兩座近島，一天內跳島來回。",stay:"WeBase（第 3 晚）",
+  route:[{p:"高松港"},{m:"ferry",t:"20 分"},{p:"女木島"},{m:"ferry",t:"20 分"},{p:"男木島"},{m:"ferry",t:"40 分"},{p:"高松港"}],
+  note:{h:"二選一",t:"野口勇美術館在牟礼、與女木男木方向相反，想去要另排半天。ダモンテ商会、男木島圖書館開館日出發前查官網。"},
+  acts:[
+   {time:"08:00 / 10:00",name:"高松 → 女木 → 男木",jp:"めおん渡輪",site:"https://meon.co.jp/",map:"高松港 めおん",tags:[["pay","¥370 / ¥510"]],note:"女木 +20 分、男木 +40 分到。高松—女木 ¥370、高松—男木 ¥510。"},
+   {time:"8:30–16:30",name:"女木島 · 鬼島大洞窟",site:"https://www.onigasima.jp/",map:"鬼ヶ島大洞窟 女木島",tags:[["pay","¥600"]],note:"港邊有摩艾像群與觀光案內所；洞窟入場 ¥600，接駁巴士約 10 分上山。"},
+   {name:"男木島 午餐",meal:1,map:"男木島",note:"Asile / Cafe Asile / 天滿屋三明治等島上小店。"},
+   {time:"10:30–15:00",name:"ダモンテ商会（麵包咖啡）",closed:"待確認",site:"https://damonte.co/",nomap:1,note:"木金土營業。長期休業中，秋季是否恢復需出發前確認官網。"},
+   {time:"13:00–16:30",name:"男木島圖書館",site:"https://ogijima-library.or.jp/",map:"男木島図書館",tags:[["free","免費 · 時間待查"]],note:"免費。開館日以 10 月月曆為準，出發前查官網。斜坡上的社區圖書館。"},
+   {time:"15:00 / 17:00",name:"男木島 → 高松",site:"https://meon.co.jp/",nomap:1,tags:[["pay","¥510"]],note:"末班 17:00 → 高松 17:40。回市區收行李。"},
+  ]},
+ {n:"八",mark:"栗林",date:"10/4（日）",place:"栗林公園 → 返台",sum:"晨遊名園、搭和船喝抹茶，傍晚班機回台。",stay:"—",
+  route:[{p:"高松市區"},{m:"walk",t:"步行/市電"},{p:"栗林公園"},{m:"bus",t:"巴士 45 分"},{p:"高松機場"},{m:"plane",t:"19:05–20:55"},{p:"桃園"}],
+  acts:[
+   {time:"6:00–17:30",name:"栗林公園",site:"https://www.my-kagawa.jp/ritsuringarden",map:"栗林公園",tags:[["pay","¥500"]],note:"10 月 6:00 開園。國之特別名勝，回遊式大名庭園。"},
+   {name:"和船周遊 · 掬月亭抹茶",site:"https://www.my-kagawa.jp/ritsuringarden/feature/ritsuringarden/wasen",nomap:1,tags:[["book","和船前月 1 日起預約"],["pay","¥850 / ¥700"]],note:"和船 ¥850＋入園、約 30 分，前一個月 1 日起可預約（9/1 起可訂）；掬月亭抹茶＋和菓子 ¥700。"},
+   {name:"市區 → 高松機場",site:"https://www.takamatsu-airport.com/tw/",nomap:1,tags:[["pay","巴士 ¥1,000"]],note:"利木津巴士約 45 分。抓在 17:00 前到機場報到。"},
+   {time:"19:05–20:55",name:"CI179 高松 → 桃園",nolink:1,tags:[["book","回程機票"]],note:"中華航空直飛返台。週二～週日運航，週日有班。"},
+  ]},
+];
+const STAYS=[
+ {cd:"9/27 – 9/28 · 2 晚",nm:"Kotori Hostel",loc:"高松 · 瓦町駅步 7 分",room:"雙床房－共用衛浴",cx:"9/24 前免費取消"},
+ {cd:"9/29 · 1 晚",nm:"Benesse House Park",loc:"直島 · Benesse 藝術區",room:"房客夜間特典・免費接駁",cx:"9/26 前免費取消"},
+ {cd:"9/30 · 1 晚",nm:"つつじ荘",loc:"直島 · 琴彈地海邊",room:"日式客房・海之家 BBQ",cx:"9/26 前免費取消"},
+ {cd:"10/1 – 10/3 · 3 晚",nm:"WeBase TAKAMATSU",loc:"高松 · 瓦町駅步 6 分",room:"標準雙人房",cx:"9/29 前免費取消"},
+];
+const TRIP_DATES=[{d:"9/27",wd:"日",key:"sun"},{d:"9/28",wd:"一",key:"mon"},{d:"9/29",wd:"二",key:"tue"},{d:"9/30",wd:"三",key:"wed"},{d:"10/1",wd:"四",key:"thu"},{d:"10/2",wd:"五",key:"fri"},{d:"10/3",wd:"六",key:"sat"},{d:"10/4",wd:"日",key:"sun"}];
+const variantOf={sun:"weekend",mon:"weekend",tue:"tue",wed:"wed_fri",thu:"wed_fri",fri:"wed_fri",sat:"weekend"};
+const ROUTES={
+ teshima:{label:"高松 ⇄ 豊島（家浦）",co:"豊島渡輪 高速船",fare:"¥1,450",note:"現金限定、不可預約、先到先上。班表逐日不同，週二（豊島美術館休館日）大減班。",variants:{
+   weekend:{tag:"月・六日",out:[["7:41","8:16"],["9:07","9:57","經直島 9:37"],["10:45","11:35","經直島 11:15"],["16:25","17:00"],["18:03","18:38"]],in:[["15:10","16:00","經直島 15:30"],["17:20","17:55"]]},
+   wed_fri:{tag:"三・四・五",out:[["7:41","8:16"],["9:02","9:37"],["10:45","11:35","經直島"],["16:25","17:00"],["18:03","18:38"]],in:[["15:10","15:45"],["17:20","17:55"]]},
+   tue:{tag:"週二（減班）",out:[["7:41",""],["13:05",""],["18:03",""]],in:[["12:00","12:35"],["17:20","17:55"]]}}},
+ naoshima:{label:"高松 ⇄ 直島（宮浦）",co:"四國汽船 渡輪／高速船",fare:"¥680 / ¥1,590",note:"渡輪 50 分 ¥680（可載車）；高速船 30 分 ¥1,590（僅旅客、班次少）。每日班表相同。",single:{out_ferry:[["8:12","9:02"],["10:14","11:04"],["12:40","13:30"],["15:35","16:25"],["18:05","18:55"]],out_hsb:[["7:20","7:50"],["9:20","9:50"],["20:30","21:00"]],in_ferry:[["14:20","15:20"],["17:00","18:00"]]}},
+ meon:{label:"高松 ⇄ 女木 ⇄ 男木",co:"雌雄島海運「めおん」",fare:"¥370 / ¥510",note:"高松—女木 ¥370、高松—男木 ¥510、女木—男木 ¥240。平日假日同一班表。",single:{out:[["8:00","","女木 8:20 / 男木 8:40"],["10:00","","女木 10:20 / 男木 10:40"],["12:00",""],["14:00",""],["16:00",""],["18:10",""]],in:[["7:00","","男木發 · 經女木"],["9:00",""],["11:00",""],["13:00",""],["15:00","","→ 高松 15:40"],["17:00","","→ 高松 17:40"]]}},
+};
+const DATE_ROUTES={"9/27":{air:1},"9/28":{r:["teshima"]},"9/29":{r:["naoshima"]},"9/30":{onisland:"直島島內活動，島間移動用免費接駁車；如需離島參考四國汽船班表。",r:["naoshima"]},"10/1":{r:["naoshima"]},"10/2":{kotoden:1},"10/3":{r:["meon"]},"10/4":{air:1}};
+
+const KEY="setouchi-plan-v2";
+let STATE={acts:{},days:{},edits:{},hidden:{}};
+const ORIG={};
+function load(){try{const r=localStorage.getItem(KEY);if(r)STATE=JSON.parse(r);}catch(e){}["acts","days","edits","hidden"].forEach(k=>{if(!STATE[k])STATE[k]={};});}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(STATE));}catch(e){toast("儲存空間不足，照片太多了");}}
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove("show"),2200);}
+
+function buildMap(){
+ const W=680,H=470;
+ const T=(x,y,txt,a,size,weight,ff,color)=>`<text x="${x}" y="${y}" text-anchor="${a}" font-size="${size}" font-weight="${weight||400}" fill="${color||'currentColor'}" font-family="${ff||'var(--sans)'}" paint-order="stroke" stroke="var(--card)" stroke-width="4" stroke-linejoin="round">${txt}</text>`;
+ // smooth closed silhouette (catmull-rom → bezier)
+ const blob=(cx,cy,rx,ry,m)=>{const n=m.length,p=[];for(let i=0;i<n;i++){const a=(i/n)*2*Math.PI-Math.PI/2;p.push([cx+Math.cos(a)*rx*m[i],cy+Math.sin(a)*ry*m[i]]);}
+   let d=`M ${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)} `;
+   for(let i=0;i<n;i++){const a=p[(i-1+n)%n],b=p[i],c=p[(i+1)%n],e=p[(i+2)%n];
+     const c1x=b[0]+(c[0]-a[0])/6,c1y=b[1]+(c[1]-a[1])/6,c2x=c[0]-(e[0]-b[0])/6,c2y=c[1]-(e[1]-b[1])/6;
+     d+=`C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${c[0].toFixed(1)} ${c[1].toFixed(1)} `;}
+   return d+"Z";};
+ // faint small date marker on map
+ const dm=(x,y,d)=>{const s=String(d),w=Math.max(16,[...s].length*6+9);
+   return `<rect x="${(x-w/2).toFixed(1)}" y="${(y-8).toFixed(1)}" width="${w}" height="16" rx="8" fill="var(--card)" stroke="var(--seal)" stroke-width="1" opacity=".9"/><text x="${x}" y="${(y+3.4).toFixed(1)}" text-anchor="middle" font-size="9.5" font-weight="600" fill="var(--seal)" font-family="var(--sans)">${s}</text>`;};
+ const IS=[
+  {x:96,y:126,l:"豊島",d:"2",rx:28,ry:17,m:[1,0.82,1.12,0.86,1.06,0.9,1.1,0.84]},
+  {x:208,y:174,l:"直島",d:"3·4·5",rx:22,ry:16,m:[1,0.9,1.1,0.82,1.14,0.86,1.04,0.92]},
+  {x:322,y:238,l:"女木島",d:"7",rx:16,ry:13,m:[1,0.85,1.12,0.9,1.05,0.88]},
+  {x:354,y:120,l:"男木島",d:"7",rx:13,ry:19,m:[1.1,0.85,1,0.9,1.16,0.8]},
+ ];
+ const LAND=[{x:300,y:432,l:"佛生山",d:"6"},{x:432,y:404,l:"栗林公園",d:"8"},{x:520,y:448,l:"高松機場",d:"1·8"},{x:588,y:374,l:"牟礼",d:"7*"}];
+ const HUB={x:330,y:352};
+ // ferry lines (hairline), one time label each
+ const L=[{b:0,t:"35分",cv:-38},{b:1,t:"30 / 50分"},{b:2,t:"20分"},{i:[1,0],t:"20分",dash:1},{i:[3,2],t:"20分",fromI:1}];
+ let lines="",labels="";
+ [[HUB,IS[0],"35分",-30],[HUB,IS[1],"30 / 50分",0],[HUB,IS[2],"20分",0],[IS[1],IS[0],"20分",0,1],[IS[2],IS[3],"20分",0,0]].forEach(s=>{const A=s[0],B=s[1],mx=(A.x+B.x)/2+(s[3]||0),my=(A.y+B.y)/2-12;
+   lines+=`<path d="M${A.x} ${A.y} Q ${mx} ${my} ${B.x} ${B.y}" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".32" ${s[4]?'stroke-dasharray="1.5 4"':''}/>`;
+   labels+=T(mx,my-3,s[2],'middle',10.5,400,'var(--sans)','var(--ink-3)');});
+ lines+=`<path d="M356 360 Q 324 402 300 420" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".26" stroke-dasharray="1.5 4"/>`;labels+=T(246,432,"琴電 16分",'end',10,400,'var(--sans)','var(--ink-3)');
+ lines+=`<path d="M378 360 Q 476 404 512 436" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".26" stroke-dasharray="1.5 4"/>`;labels+=T(488,388,"巴士 45分",'middle',10,400,'var(--sans)','var(--ink-3)');
+ // land coastline (clean)
+ const land=`<path d="M0 350 C 150 336, 300 350, 400 346 C 500 342, 600 352, 680 348 L680 470 L0 470 Z" fill="currentColor" fill-opacity=".05"/><path d="M0 350 C 150 336, 300 350, 400 346 C 500 342, 600 352, 680 348" fill="none" stroke="currentColor" stroke-opacity=".32" stroke-width="1.1"/>`;
+ // islands (silhouettes) + labels + date markers
+ let isles="",marks="";
+ IS.forEach(p=>{isles+=`<path d="${blob(p.x,p.y,p.rx,p.ry,p.m)}" fill="currentColor" fill-opacity=".11" stroke="currentColor" stroke-opacity=".5" stroke-width="1.1"/>`;
+   const anchor=p.x<120?'start':(p.x>470?'end':'middle');
+   labels+=T(p.x,p.y+p.ry+15,p.l,anchor,14,600,'var(--serif)');
+   marks+=dm(p.x,p.y-p.ry-11,p.d);});
+ // hub + land spots
+ let dots=`<circle cx="${HUB.x}" cy="${HUB.y}" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="${HUB.x}" cy="${HUB.y}" r="2.4" fill="currentColor"/>`;
+ labels+=T(HUB.x,HUB.y+20,"高松港",'middle',14,600,'var(--serif)');
+ LAND.forEach(p=>{dots+=`<circle cx="${p.x}" cy="${p.y}" r="3" fill="currentColor"/>`;const anchor=p.x>470?'end':'middle';labels+=T(p.x,p.y+18,p.l,anchor,13.5,600,'var(--serif)');marks+=dm(p.x,p.y-14,p.d);});
+ return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="高松與周邊島嶼相對位置圖" style="color:var(--ink)">${land}${lines}${isles}${dots}${labels}${marks}${T(56,44,"瀨戶內海",'start',12.5,400,'var(--serif)','var(--ink-3)')}<g transform="translate(644,48)" opacity=".65"><circle r="12" fill="none" stroke="currentColor" stroke-width="1"/><path d="M0 -8 L2.6 3.5 L0 1 L-2.6 3.5 Z" fill="var(--seal)"/>${T(0,-16,"北",'middle',10,400,'var(--sans)','var(--ink-3)')}</g></svg>`;
+}
+
+function mapsUrl(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
+function routeStrip(route){return `<div class="rstrip">`+route.map(s=>s.p?`<span class="rnode"><span class="rd"></span>${s.p}</span>`:`<span class="rseg">${ICON[s.m]||''}<span>${s.t}</span><span class="ar">›</span></span>`).join("")+`</div>`;}
+const dayList=document.getElementById("dayList");
+DAYS.forEach((day,di)=>{
+ const side=di%2===0?"L":"R";
+ let acts="";
+ day.acts.forEach((a,ai)=>{
+   const id="d"+di+"a"+ai;
+   const meal=a.meal?`<span class="tag meal">餐</span>`:"";
+   let tags=a.closed?`<span class="tag closed">${a.closed}</span>`:meal+(a.tags||[]).map(t=>`<span class="tag ${t[0]}">${t[1]}</span>`).join("");
+   const time=a.time?`<span class="act-time">${a.time}</span>`:`<span class="act-time none">—</span>`;
+   const jp=a.jp?`<span class="jp">${a.jp}</span>`:"";
+   ORIG["t"+id]=a.name;ORIG["n"+id]=a.note||"";
+   let refs="";
+   if(!a.nolink){let chips="";
+     if(a.site)chips+=`<span class="reflink-w" data-lk="rl${id}s"><a class="reflink site" href="${a.site}" target="_blank" rel="noopener">${ICON.link}官網</a><button class="lkdel" title="刪除連結" onclick="delLink(this,'rl${id}s')">×</button></span>`;
+     if(!a.nomap)chips+=`<span class="reflink-w" data-lk="rl${id}m"><a class="reflink" href="${mapsUrl(a.map||a.name)}" target="_blank" rel="noopener">${ICON.map}地圖</a><button class="lkdel" title="刪除連結" onclick="delLink(this,'rl${id}m')">×</button></span>`;
+     if(chips)refs=`<div class="reflinks">${chips}</div>`;}
+   acts+=`<div class="act${a.closed?' closed':''}" data-actid="${id}">
+     <div class="act-h" ${a.closed?'':`onclick="toggleAct(this)"`}>${time}<div><div class="act-name"><span class="etext" data-ek="t${id}">${a.name}</span>${jp}</div>${tags?`<div class="act-tags">${tags}</div>`:""}</div><span class="act-tog">＋</span></div>
+     <div class="act-body"><div class="act-bin"><div class="act-inner">
+       <p class="act-note etext" data-ek="n${id}">${a.note||""}</p>${refs}
+       <div class="ucontent" data-act="${id}"><div class="ugal"></div><div class="unotes"></div><div class="ulinks"></div></div>
+       <div class="uadd"><button onclick="addPhoto('${id}')">${ICON.photo}加照片</button><button onclick="addNote('${id}')">${ICON.text}加說明</button><button onclick="addLink('${id}')">${ICON.link}加連結</button></div>
+       <button class="actdel" onclick="delAct('${id}')">刪除此活動</button>
+     </div></div></div></div>`;
+ });
+ const note=day.note?`<div class="note-box"><span class="h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><circle cx="12" cy="17.5" r=".6" fill="currentColor"/></svg>${day.note.h}</span>${day.note.t}</div>`:"";
+ const stay=day.stay&&day.stay!=="—"?`<div class="dstay">泊　${day.stay}</div>`:"";
+ ORIG["dt"+di]=day.place;
+ dayList.insertAdjacentHTML("beforeend",
+  `<section class="day" data-side="${side}">
+    <div class="daymark"><span class="dn">第 ${day.n} 日</span><span class="dplace">${day.mark}</span><span class="ddate">${day.date}</span>${stay}</div>
+    <div class="daybody">
+      <div class="day-title etext" data-ek="dt${di}">${day.place}</div>
+      ${routeStrip(day.route)}${note}
+      <div class="acts">${acts}</div>
+      <div class="daynotes-wrap"><div class="ucontent daynotes" data-day="${di}"><div class="unotes"></div></div><div class="uadd"><button onclick="addDayNote(${di})">${ICON.text}加今日備註</button></div></div>
+    </div>
+  </section>`);
+});
+function toggleAct(h){if(document.body.classList.contains("editing")&&window.event&&window.event.target.closest(".etext"))return;h.parentElement.classList.toggle("open");}
+
+function ucOf(id){return document.querySelector(`.ucontent[data-act="${id}"]`);}
+function dnOf(di){return document.querySelector(`.ucontent.daynotes[data-day="${di}"]`);}
+function thumbEl(src){const d=document.createElement("div");d.className="uthumb";d.onclick=e=>{if(e.target.closest(".del"))return;d.classList.toggle("big");};
+ d.innerHTML=`<img src="${src}"><button class="del" title="刪除" onclick="this.parentElement.remove();syncAll()">×</button>`;return d;}
+function noteEl(text,editing){const row=document.createElement("div");row.className="unote-row";
+ const d=document.createElement("div");d.className="unote";d.contentEditable=editing?"true":"false";d.textContent=text||"";d.addEventListener("blur",syncAll);
+ const b=document.createElement("button");b.className="del";b.textContent="×";b.title="刪除";b.onclick=()=>{row.remove();syncAll();};
+ row.appendChild(d);row.appendChild(b);return row;}
+function linkEl(t,u){const a=document.createElement("a");a.className="ulink";a.href=u;a.target="_blank";a.rel="noopener";a.dataset.u=u;
+ a.innerHTML=`${ICON.link}<span>${t||u}</span><button class="del" title="刪除" onclick="event.preventDefault();this.parentElement.remove();syncAll()">×</button>`;return a;}
+function addPhoto(id){window._pendAct=id;const f=document.getElementById("imgFile");f.value="";f.click();}
+function onImgFiles(e){const id=window._pendAct;const uc=ucOf(id);if(!uc)return;const files=[...e.target.files];
+ let left=files.length;files.forEach(file=>resizeImg(file,src=>{uc.querySelector(".ugal").appendChild(thumbEl(src));if(--left===0)syncAll();}));}
+function resizeImg(file,cb){const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const max=1280;let w=img.width,h=img.height;if(w>max||h>max){if(w>h){h=Math.round(h*max/w);w=max;}else{w=Math.round(w*max/h);h=max;}}
+   const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);cb(c.toDataURL("image/jpeg",0.82));};img.onerror=()=>cb(r.result);img.src=r.result;};r.onerror=()=>toast("讀取照片失敗");r.readAsDataURL(file);}
+function addNote(id){const uc=ucOf(id);const n=noteEl("",true);uc.querySelector(".unotes").appendChild(n);n.querySelector(".unote").focus();}
+function addDayNote(di){const dn=dnOf(di);const n=noteEl("",true);dn.querySelector(".unotes").appendChild(n);n.querySelector(".unote").focus();}
+function addLink(id){const uc=ucOf(id);const box=uc.querySelector(".ulinks");
+ const form=document.createElement("div");form.className="linkform";
+ form.innerHTML=`<input class="t" placeholder="說明（例：官網）"><input class="u" placeholder="https://…"><button>加入</button>`;
+ form.querySelector("button").onclick=()=>{const t=form.querySelector(".t").value.trim();let u=form.querySelector(".u").value.trim();if(!u){form.remove();return;}if(!/^https?:\/\//.test(u))u="https://"+u;box.insertBefore(linkEl(t,u),form);form.remove();syncAll();};
+ box.appendChild(form);form.querySelector(".u").focus();}
+function syncAll(){
+ document.querySelectorAll(".ucontent[data-act]").forEach(uc=>{const id=uc.dataset.act;
+   const images=[...uc.querySelectorAll(".ugal img")].map(i=>i.src);
+   const notes=[...uc.querySelectorAll(".unotes .unote")].map(n=>n.textContent.trim()).filter(Boolean);
+   const links=[...uc.querySelectorAll(".ulinks .ulink")].map(a=>({t:a.querySelector("span").textContent,u:a.dataset.u}));
+   if(images.length||notes.length||links.length)STATE.acts[id]={images,notes,links};else delete STATE.acts[id];});
+ document.querySelectorAll(".ucontent.daynotes").forEach(dn=>{const di=dn.dataset.day;
+   const notes=[...dn.querySelectorAll(".unote")].map(n=>n.textContent.trim()).filter(Boolean);
+   if(notes.length)STATE.days[di]={notes};else delete STATE.days[di];});
+ save();
+}
+function applyState(){
+ const editing=document.body.classList.contains("editing");
+ document.querySelectorAll(".ugal,.unotes,.ulinks").forEach(x=>x.innerHTML="");
+ Object.entries(STATE.acts||{}).forEach(([id,v])=>{const uc=ucOf(id);if(!uc)return;
+   const g=uc.querySelector(".ugal"),nn=uc.querySelector(".unotes"),ll=uc.querySelector(".ulinks");
+   (v.images||[]).forEach(s=>g.appendChild(thumbEl(s)));(v.notes||[]).forEach(t=>nn.appendChild(noteEl(t,editing)));(v.links||[]).forEach(l=>ll.appendChild(linkEl(l.t,l.u)));});
+ Object.entries(STATE.days||{}).forEach(([di,v])=>{const dn=dnOf(di);if(!dn)return;const nn=dn.querySelector(".unotes");(v.notes||[]).forEach(t=>nn.appendChild(noteEl(t,editing)));});
+}
+// edit / delete baseline text & links
+function saveEText(el){const ek=el.dataset.ek,txt=el.textContent.trim();if(txt===(ORIG[ek]||""))delete STATE.edits[ek];else STATE.edits[ek]=txt;save();}
+document.addEventListener("focusout",e=>{if(e.target&&e.target.classList&&e.target.classList.contains("etext"))saveEText(e.target);});
+function delLink(btn,lk){const w=btn.closest(".reflink-w");if(w)w.remove();STATE.hidden[lk]=1;save();}
+function delAct(id){const el=document.querySelector(`.act[data-actid="${id}"]`);if(el)el.remove();STATE.hidden["act"+id]=1;delete STATE.acts[id];save();}
+function applyEdits(){
+ Object.entries(STATE.edits||{}).forEach(([ek,txt])=>{const el=document.querySelector(`[data-ek="${ek}"]`);if(el)el.textContent=txt;});
+ Object.keys(STATE.hidden||{}).forEach(hk=>{const el=hk.indexOf("act")===0?document.querySelector(`.act[data-actid="${hk.slice(3)}"]`):document.querySelector(`.reflink-w[data-lk="${hk}"]`);if(el)el.remove();});
+}
+function toggleEdit(){const on=!document.body.classList.contains("editing");document.body.classList.toggle("editing",on);
+ document.getElementById("editBtn").classList.toggle("on",on);document.getElementById("editBtn").lastChild.textContent=on?"完成":"編輯";
+ document.querySelectorAll(".unote,.etext").forEach(n=>n.contentEditable=on?"true":"false");
+ if(on)toast("編輯模式：可直接改字、刪連結／活動、加照片說明");}
+
+async function exportPlan(){const data=JSON.stringify(STATE,null,1);const fn="瀨戶內行程-我的版本.json";
+ if(window.claude&&window.claude.downloads){try{await window.claude.downloads.save({filename:fn,data});toast("已匯出，可傳給旅伴");return;}catch(err){if(err&&err.code==="declined")return;}}
+ try{await navigator.clipboard.writeText(data);toast("已複製 JSON 到剪貼簿（貼進純文字檔存起來）");}catch(e){const w=window.open("","_blank");if(w)w.document.write("<pre>"+data.replace(/</g,"&lt;")+"</pre>");else toast("匯出失敗");}}
+function importPlan(e){const file=e.target.files[0];if(!file)return;const r=new FileReader();
+ r.onload=()=>{try{const obj=JSON.parse(r.result);if(!obj||typeof obj!=="object")throw 0;STATE={acts:obj.acts||{},days:obj.days||{},edits:obj.edits||{},hidden:obj.hidden||{}};save();toast("已匯入，重新整理中…");setTimeout(()=>{try{location.reload();}catch(x){applyState();applyEdits();}},350);}catch(err){toast("匯入失敗：檔案格式不對");}e.target.value="";};
+ r.readAsText(file);}
+
+const ttDates=document.getElementById("ttDates");
+TRIP_DATES.forEach((d,i)=>ttDates.insertAdjacentHTML("beforeend",`<button class="ttd" data-i="${i}" onclick="selDate(${i})"><span class="dd">${d.d}</span><span class="dw">${d.wd}</span></button>`));
+[["all","全部航線"],["teshima","豊島"],["naoshima","直島"],["meon","女木・男木"]].forEach(r=>document.getElementById("ttRoutes").insertAdjacentHTML("beforeend",`<button class="ttr" data-r="${r[0]}" onclick="selRoute('${r[0]}')">${r[1]}</button>`));
+let curDate=1,curRoute="all";
+function selDate(i){curDate=i;curRoute="all";renderTT();}
+function selRoute(r){curRoute=r;curDate=-1;renderTT();}
+function tripRows(l){return l.map(t=>`<div class="trip"><div class="t">${t[0]}${t[1]?`<span class="arr">→ ${t[1]}</span>`:''}</div>${t[2]?`<div class="via">${t[2]}</div>`:''}</div>`).join('');}
+function schedBlock(key,vk){const R=ROUTES[key];const head=(tag,fare)=>`<div class="sched-h"><span class="nm">${R.label}</span><span class="co">${R.co}</span>${tag?`<span class="var">${tag}</span>`:''}<span class="fare">${fare||R.fare}</span></div>`;
+ if(R.variants){const v=R.variants[vk]||R.variants.weekend;return `<div class="sched">${head(v.tag)}<div class="dirlab">高松 出發 →</div><div class="trips">${tripRows(v.out)}</div><div class="dirlab">← 家浦 返回</div><div class="trips">${tripRows(v.in)}</div><p class="ttnote warn">${R.note}</p></div>`;}
+ if(key==='naoshima'){const s=R.single;return `<div class="sched">${head('渡輪')}<div class="dirlab">高松 → 宮浦（渡輪 50分）</div><div class="trips">${tripRows(s.out_ferry)}</div><div class="dirlab">高松 → 宮浦（高速船 30分）</div><div class="trips">${tripRows(s.out_hsb)}</div><div class="dirlab">← 宮浦 → 高松（午後・渡輪）</div><div class="trips">${tripRows(s.in_ferry)}</div><p class="ttnote">${R.note}</p></div>`;}
+ const s=R.single;return `<div class="sched">${head()}<div class="dirlab">高松 → 女木・男木</div><div class="trips">${tripRows(s.out)}</div><div class="dirlab">← 男木 → 高松</div><div class="trips">${tripRows(s.in)}</div><p class="ttnote">${R.note}</p></div>`;}
+function renderTT(){document.querySelectorAll(".ttd").forEach(b=>b.classList.toggle("on",+b.dataset.i===curDate));document.querySelectorAll(".ttr").forEach(b=>b.classList.toggle("on",b.dataset.r===curRoute&&curDate===-1));
+ const P=document.getElementById("ttPanel");let html="";
+ if(curDate>=0){const dt=TRIP_DATES[curDate],info=DATE_ROUTES[dt.d];html+=`<div class="ttlabel">${dt.d}（週${dt.wd}）</div>`;
+   if(info.air)html+=`<p class="ttnote">今天是<b>飛機日</b>。CI178 桃園 14:30 → 高松 18:05；CI179 高松 19:05 → 桃園 20:55（華航直飛，週二～日）。機場 ⇄ 市區利木津巴士約 45–50 分、¥1,000，隨航班發車。</p>`;
+   else if(info.kotoden)html+=`<p class="ttnote">今天走<b>陸路</b>。琴電琴平線 高松築港 → 仏生山，約 16 分、¥360，班次頻密（約每 15–20 分），不用查船。</p>`;
+   else{if(info.onisland)html+=`<p class="ttnote">${info.onisland}</p>`;info.r.forEach(rk=>html+=schedBlock(rk,variantOf[dt.key]));}
+ }else{if(curRoute==='all')["teshima","naoshima","meon"].forEach(k=>html+=schedBlock(k,'weekend'));else html+=schedBlock(curRoute,'weekend');
+   if(curRoute==='teshima')html+=`<p class="ttnote warn">上表為<b>月・六日</b>版。豊島渡輪另有「三四五」與「週二（大減班）」版本——用上方日期鈕查特定日會自動套用正確班表。</p>`;}
+ P.innerHTML=html;}
+
+const sc=document.getElementById("stayCards");
+STAYS.forEach(s=>sc.insertAdjacentHTML("beforeend",`<div class="c"><div class="cd">${s.cd}</div><div class="nm">${s.nm}</div><dl><dt>位置</dt><dd>${s.loc}</dd><dt>房型</dt><dd>${s.room}</dd><dt>取消</dt><dd>${s.cx}</dd></dl></div>`));
+function toggleTheme(){const r=document.documentElement;const cur=r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");r.setAttribute("data-theme",cur==="dark"?"light":"dark");}
+
+document.getElementById("mapbox").innerHTML=buildMap()+`<div class="maplegend"><span>${ICON.ferry}虛線＝航路</span><span>${ICON.train}電車</span><span>${ICON.bus}巴士</span><span><span class="dnum">N</span>第 N 天</span></div>`;
+load();applyState();applyEdits();renderTT();
+</script>
