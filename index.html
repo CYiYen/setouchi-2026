@@ -261,7 +261,7 @@ footer b{color:var(--ink-2)}
 
 <div class="wrap sec" id="overview">
   <div class="sec-h"><span class="idx">壹</span><h2>地圖</h2><span class="note">島嶼相對位置與船程時間</span></div>
-  <p class="lead">高松是大本營（住宿與進出都在這）。所有島都在高松<b>正北方的海上</b>——女木、男木最近，直島稍遠，豊島最遠；溫泉、名園、機場在高松<b>南邊陸地</b>，搭電車或巴士。圓圈數字是第幾天去。</p>
+  <p class="lead">高松是大本營（住宿與進出都在這）。所有島都在高松<b>正北方的海上</b>——女木、男木最近，直島稍遠，豊島最遠；溫泉、名園、機場在高松<b>南邊陸地</b>，搭電車或巴士。</p>
   <div class="mapbox" id="mapbox"></div>
 </div>
 
@@ -273,7 +273,7 @@ footer b{color:var(--ink-2)}
 <div class="ttwrap" id="timetable">
   <div class="wrap sec">
     <div class="sec-h"><span class="idx">參</span><h2>時刻表</h2><span class="note">選日期看當天船班</span></div>
-    <p class="lead">點日期，直接顯示<b>那天要搭的船</b>與時刻。島間渡輪多半<b>現金購票、不能預約</b>，班次少、錯過要等一兩小時。</p>
+    <p class="lead">日期 ＆ 搭船時刻表。島間渡輪多半<b>現金購票、不能預約</b>，班次少、錯過要等一兩小時。</p>
     <div class="ttdates" id="ttDates"></div>
     <div class="ttroutes" id="ttRoutes"></div>
     <div class="ttpanel" id="ttPanel"></div>
@@ -290,10 +290,6 @@ footer b{color:var(--ink-2)}
     <span><span class="lg" style="background:var(--seal);color:#fff;border-color:var(--seal)">休</span>當天不開，別排</span>
     <span><span class="lg" style="border-color:var(--seal);color:var(--seal)">餐</span>用餐</span>
   </div>
-  <footer>
-    <p><b style="color:var(--sea)">已於 2026-07-22 上各官網逐項核實</b>：船班、票價、開放時間、預約規則多數相符。已更新之處——華航運航日（<b>週五停飛</b>，你的兩個週日 OK）、鬼ヶ島大洞窟 8:35–16:55、掬月亭抹茶 ¥800。另 <b>10/1 起 Benesse 各館提早至 16:00 閉館</b>（最後入場 15:30）；地中美術館你排 9/30 平日＝¥2,500（週末才 ¥2,700）。</p>
-    <p style="margin-top:10px"><b>仍需出發前再查（官方尚未公布／動態頁讀不到）</b>：男木島圖書館 10 月開館日、ダモンテ商会是否恢復營業、The Naoshima Plan「水」逐日開館日——這三處頁面已標「待確認／時間待查」。金額為單程大人票，¥ 為日圓；景點連結為官方頁與 Google 地圖。</p>
-  </footer>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -333,7 +329,7 @@ const DAYS=[
   ]},
  {n:"三",mark:"直島",date:"9/29（二）",place:"直島 · 本村",sum:"上午逛家計畫老屋藝術，晚上住進美術館看夜間展。",stay:"Benesse House Park",
   route:[{p:"高松港"},{m:"ferry",t:"高速船 30 分"},{p:"宮浦港"},{m:"shuttle",t:"接駁車"},{p:"本村"},{m:"shuttle",t:"接駁車"},{p:"Benesse"}],
-  note:{h:"今天休",t:"Ring of Fire、The Naoshima Plan「水」、Art Island Center、Kinza 今天（二）都不開，留到 10/1（四）補。"},
+  note:{h:"今天休",t:"Ring of Fire、The Naoshima Plan「水」、Art Island Center、Kinza 今天（二）都不開。"},
   acts:[
    {time:"09:20–09:50",name:"高松 → 宮浦港",jp:"四國汽船高速船",site:"https://shikokukisen.com/",map:"宮浦港 直島",tags:[["pay","¥1,590 / ¥680"]],note:"高速船 30 分 ¥1,590；也可搭 8:12 渡輪 50 分 ¥680。"},
    {name:"家計畫 老屋藝術巡禮",jp:"本村",site:"https://benesse-artsite.jp/en/art/arthouse.html",map:"直島 家プロジェクト 本村",tags:[["book","共通券 ¥1,200"]],note:"共通 5 館券（角屋・護王神社・石橋・碁會所・牙醫之家）。南寺需另線上預約 ¥600。老屋改造的當代藝術聚落。"},
