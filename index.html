@@ -291,8 +291,8 @@ footer b{color:var(--ink-2)}
     <span><span class="lg" style="border-color:var(--seal);color:var(--seal)">餐</span>用餐</span>
   </div>
   <footer>
-    <p><b>資料來源與時效</b>：船班、開放時間、票價為 2026 年 7 月查詢之官方現行資訊（Benesse Art Site Naoshima、四國汽船、豊島渡輪、雌雄島海運「めおん」、高松機場、各設施官網）。瀨戶內時刻表逐月調整、旺季常異動，<b>出發前一週請再上官網確認當天班表與開館日曆</b>。</p>
-    <p style="margin-top:10px">出發前務必再查：直島 The Naoshima Plan「水」與 Ring of Fire 的逐日開館日曆、男木島圖書館 10 月開館日、ダモンテ商会秋季是否恢復營業。金額為單程大人票，¥ 為日圓。景點連結為官方頁與 Google 地圖。</p>
+    <p><b style="color:var(--sea)">已於 2026-07-22 上各官網逐項核實</b>：船班、票價、開放時間、預約規則多數相符。已更新之處——華航運航日（<b>週五停飛</b>，你的兩個週日 OK）、鬼ヶ島大洞窟 8:35–16:55、掬月亭抹茶 ¥800。另 <b>10/1 起 Benesse 各館提早至 16:00 閉館</b>（最後入場 15:30）；地中美術館你排 9/30 平日＝¥2,500（週末才 ¥2,700）。</p>
+    <p style="margin-top:10px"><b>仍需出發前再查（官方尚未公布／動態頁讀不到）</b>：男木島圖書館 10 月開館日、ダモンテ商会是否恢復營業、The Naoshima Plan「水」逐日開館日——這三處頁面已標「待確認／時間待查」。金額為單程大人票，¥ 為日圓；景點連結為官方頁與 Google 地圖。</p>
   </footer>
 </div>
 <div class="toast" id="toast"></div>
@@ -316,7 +316,7 @@ const DAYS=[
  {n:"一",mark:"高松",date:"9/27（日）",place:"抵達 · 高松",sum:"午後落地，搭巴士進市區安頓。",stay:"Kotori（第 1 晚）",
   route:[{p:"桃園機場"},{m:"plane",t:"14:30–18:05"},{p:"高松機場"},{m:"bus",t:"45 分"},{p:"高松市區"}],
   acts:[
-   {time:"14:30–18:05",name:"CI178 桃園 → 高松",nolink:1,tags:[["book","已訂機票"]],note:"中華航空直飛（A321neo）。週二～週日運航，週日有班。"},
+   {time:"14:30–18:05",name:"CI178 桃園 → 高松",nolink:1,tags:[["book","已訂機票"]],note:"中華航空直飛（A321neo）。運航日 週二三四六日（週五停飛，改早班 CI278/279）；9/27（日）有班。"},
    {time:"18:05後",name:"利木津巴士進市區",site:"https://www.takamatsu-airport.com/tw/",map:"高松空港",tags:[["pay","¥1,000"]],note:"高松機場 → 高松駅約 45–50 分，隨航班發車。"},
    {name:"入住 Kotori Hostel",site:"https://www.kotori-japan.com/en/takamatsu/",map:"Kotori Hostel Takamatsu",tags:[["book","9/24 前免費取消"]],note:"瓦町駅步行約 7 分。雙床房、共用衛浴。"},
   ]},
@@ -353,7 +353,7 @@ const DAYS=[
    {name:"李禹煥美術館",site:"https://benesse-artsite.jp/en/art/lee-ufan.html",map:"李禹煥美術館 直島",tags:[["pay","¥1,200"]],note:"10:00–17:00。線上票較便宜，現場也可購。安藤設計、留白與石鐵的對話。"},
    {name:"宮浦港 午餐",meal:1,nolink:1,note:"回宮浦一帶吃飯、採買。"},
    {name:"入住 つつじ荘",jp:"海之家",site:"http://tsutsujiso.com/",map:"つつじ荘 直島",tags:[["book","9/26 前免費取消"]],note:"島南岸琴彈地海水浴場旁，全島最靠海的住宿。日式客房。"},
-   {time:"18:00左右",name:"海之家 BBQ 晚餐",meal:1,nomap:1,tags:[["book","3 天前預約"]],note:"露台海景燒烤，需事前預約（建議訂房時一併訂），18:00 / 18:30 開始。"},
+   {time:"18:00左右",name:"海之家 BBQ 晚餐",meal:1,nomap:1,tags:[["book","需事前預約"]],note:"露台海景燒烤，需事前預約（建議訂房時一併訂，電話 087-892-2838 確認提前天數），18:00 / 18:30 開始。"},
    {name:"收行李",nolink:1,note:"隔天要回高松，先整理。"},
   ]},
  {n:"五",mark:"直島",date:"10/1（四）",place:"直島 → 高松",sum:"補看週四限定的 Kinza 與 Art Island Center，午後回高松。",stay:"WeBase（第 1 晚）",
@@ -381,7 +381,7 @@ const DAYS=[
   note:{h:"二選一",t:"野口勇美術館在牟礼、與女木男木方向相反，想去要另排半天。ダモンテ商会、男木島圖書館開館日出發前查官網。"},
   acts:[
    {time:"08:00 / 10:00",name:"高松 → 女木 → 男木",jp:"めおん渡輪",site:"https://meon.co.jp/",map:"高松港 めおん",tags:[["pay","¥370 / ¥510"]],note:"女木 +20 分、男木 +40 分到。高松—女木 ¥370、高松—男木 ¥510。"},
-   {time:"8:30–16:30",name:"女木島 · 鬼島大洞窟",site:"https://www.onigasima.jp/",map:"鬼ヶ島大洞窟 女木島",tags:[["pay","¥600"]],note:"港邊有摩艾像群與觀光案內所；洞窟入場 ¥600，接駁巴士約 10 分上山。"},
+   {time:"8:35–16:55",name:"女木島 · 鬼島大洞窟",site:"https://www.onigasima.jp/",map:"鬼ヶ島大洞窟 女木島",tags:[["pay","¥600"]],note:"港邊有摩艾像群與觀光案內所；入場 ¥600（受付至 16:40）。上山接駁巴士約 10 分、不定休，出發前電話 087-840-9055 確認。"},
    {name:"男木島 午餐",meal:1,map:"男木島",note:"Asile / Cafe Asile / 天滿屋三明治等島上小店。"},
    {time:"10:30–15:00",name:"ダモンテ商会（麵包咖啡）",closed:"待確認",site:"https://damonte.co/",nomap:1,note:"木金土營業。長期休業中，秋季是否恢復需出發前確認官網。"},
    {time:"13:00–16:30",name:"男木島圖書館",site:"https://ogijima-library.or.jp/",map:"男木島図書館",tags:[["free","免費 · 時間待查"]],note:"免費。開館日以 10 月月曆為準，出發前查官網。斜坡上的社區圖書館。"},
@@ -391,9 +391,9 @@ const DAYS=[
   route:[{p:"高松市區"},{m:"walk",t:"步行/市電"},{p:"栗林公園"},{m:"bus",t:"巴士 45 分"},{p:"高松機場"},{m:"plane",t:"19:05–20:55"},{p:"桃園"}],
   acts:[
    {time:"6:00–17:30",name:"栗林公園",site:"https://www.my-kagawa.jp/ritsuringarden",map:"栗林公園",tags:[["pay","¥500"]],note:"10 月 6:00 開園。國之特別名勝，回遊式大名庭園。"},
-   {name:"和船周遊 · 掬月亭抹茶",site:"https://www.my-kagawa.jp/ritsuringarden/feature/ritsuringarden/wasen",nomap:1,tags:[["book","和船前月 1 日起預約"],["pay","¥850 / ¥700"]],note:"和船 ¥850＋入園、約 30 分，前一個月 1 日起可預約（9/1 起可訂）；掬月亭抹茶＋和菓子 ¥700。"},
+   {name:"和船周遊 · 掬月亭抹茶",site:"https://www.my-kagawa.jp/ritsuringarden/feature/ritsuringarden/wasen",nomap:1,tags:[["book","和船前月 1 日起預約"],["pay","¥850 / ¥800"]],note:"和船 ¥850＋入園、約 30 分，前一個月 1 日起可預約（9/1 起可訂、當日不受理）；掬月亭抹茶＋和菓子 ¥800。"},
    {name:"市區 → 高松機場",site:"https://www.takamatsu-airport.com/tw/",nomap:1,tags:[["pay","巴士 ¥1,000"]],note:"利木津巴士約 45 分。抓在 17:00 前到機場報到。"},
-   {time:"19:05–20:55",name:"CI179 高松 → 桃園",nolink:1,tags:[["book","回程機票"]],note:"中華航空直飛返台。週二～週日運航，週日有班。"},
+   {time:"19:05–20:55",name:"CI179 高松 → 桃園",nolink:1,tags:[["book","回程機票"]],note:"中華航空直飛返台。運航日 週二三四六日（週五停飛）；10/4（日）有班。"},
   ]},
 ];
 const STAYS=[
@@ -584,7 +584,7 @@ function schedBlock(key,vk){const R=ROUTES[key];const head=(tag,fare)=>`<div cla
 function renderTT(){document.querySelectorAll(".ttd").forEach(b=>b.classList.toggle("on",+b.dataset.i===curDate));document.querySelectorAll(".ttr").forEach(b=>b.classList.toggle("on",b.dataset.r===curRoute&&curDate===-1));
  const P=document.getElementById("ttPanel");let html="";
  if(curDate>=0){const dt=TRIP_DATES[curDate],info=DATE_ROUTES[dt.d];html+=`<div class="ttlabel">${dt.d}（週${dt.wd}）</div>`;
-   if(info.air)html+=`<p class="ttnote">今天是<b>飛機日</b>。CI178 桃園 14:30 → 高松 18:05；CI179 高松 19:05 → 桃園 20:55（華航直飛，週二～日）。機場 ⇄ 市區利木津巴士約 45–50 分、¥1,000，隨航班發車。</p>`;
+   if(info.air)html+=`<p class="ttnote">今天是<b>飛機日</b>。CI178 桃園 14:30 → 高松 18:05；CI179 高松 19:05 → 桃園 20:55（華航直飛，運航日 週二三四六日、<b>週五停飛</b>）。機場 ⇄ 市區利木津巴士約 45–50 分、¥1,000，隨航班發車。</p>`;
    else if(info.kotoden)html+=`<p class="ttnote">今天走<b>陸路</b>。琴電琴平線 高松築港 → 仏生山，約 16 分、¥360，班次頻密（約每 15–20 分），不用查船。</p>`;
    else{if(info.onisland)html+=`<p class="ttnote">${info.onisland}</p>`;info.r.forEach(rk=>html+=schedBlock(rk,variantOf[dt.key]));}
  }else{if(curRoute==='all')["teshima","naoshima","meon"].forEach(k=>html+=schedBlock(k,'weekend'));else html+=schedBlock(curRoute,'weekend');
